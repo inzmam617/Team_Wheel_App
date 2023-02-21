@@ -15,11 +15,11 @@ class screenTwo extends StatefulWidget {
   final String monthlyInstallment;
   final Dataa vehicles;
 
-  screenTwo({required this.monthlyInstallment,  required this.vehicles});
+  const screenTwo({super.key, required this.monthlyInstallment,  required this.vehicles});
 
   @override
   State<screenTwo> createState() => _screenTwoState(
-      monthlyInstallment_: this.monthlyInstallment, vehicles_: this.vehicles);
+      monthlyInstallment_: monthlyInstallment, vehicles_: vehicles);
 }
 
 final images = [
@@ -82,7 +82,7 @@ class _screenTwoState extends State<screenTwo> {
   void initialize() async {
     ApiServices.InstallmentConfiguration().then((value) {
       data_ = value;
-      dataa = data_.data as List<Data>;
+      dataa = data_.data;
       interest = double.parse(dataa[0].defaultValue);
       insurence = double.parse(dataa[1].defaultValue);
       down_payment_percentage = double.parse(dataa[2].defaultValue);
@@ -98,29 +98,29 @@ class _screenTwoState extends State<screenTwo> {
   }
 
   void calculate(
-    double no_of_months,
+    double noOfMonths,
     double interest,
-    double down_payment_percentage,
+    double downPaymentPercentage,
     double insurance,
-    double last_payment,
-    double car_price,
+    double lastPayment,
+    double carPrice,
   ) {
-    double monthly_installment = ((car_price -
-                (car_price * (down_payment_percentage / 100))) +
-            (((car_price - (car_price * (down_payment_percentage / 100))) *
+    double monthlyInstallment = ((carPrice -
+                (carPrice * (downPaymentPercentage / 100))) +
+            (((carPrice - (carPrice * (downPaymentPercentage / 100))) *
                     (interest / 100)) *
-                (no_of_months / 12)) +
-            ((car_price * (insurance / 100)) * (no_of_months / 12)) -
-            (car_price - (car_price - (car_price * (last_payment / 100))))) /
-        (no_of_months - 1);
-    total = (monthly_installment * (no_of_months - 1)) +
-        (car_price - (car_price - (car_price * (last_payment / 100)))) +
-        (car_price * (down_payment_percentage / 100));
+                (noOfMonths / 12)) +
+            ((carPrice * (insurance / 100)) * (noOfMonths / 12)) -
+            (carPrice - (carPrice - (carPrice * (lastPayment / 100))))) /
+        (noOfMonths - 1);
+    total = (monthlyInstallment * (noOfMonths - 1)) +
+        (carPrice - (carPrice - (carPrice * (lastPayment / 100)))) +
+        (carPrice * (downPaymentPercentage / 100));
     setState(() {
-      total = (monthly_installment * (no_of_months - 1)) +
-          (car_price - (car_price - (car_price * (last_payment / 100)))) +
-          (car_price * (down_payment_percentage / 100));
-      installment = monthly_installment;
+      total = (monthlyInstallment * (noOfMonths - 1)) +
+          (carPrice - (carPrice - (carPrice * (lastPayment / 100)))) +
+          (carPrice * (downPaymentPercentage / 100));
+      installment = monthlyInstallment;
     });
   }
 
@@ -233,11 +233,11 @@ class _screenTwoState extends State<screenTwo> {
       header.cells[i].style = headerStyle;
     }
     PdfGridRow row = grid.rows.add();
-    row.cells[0].value = '${interest.toStringAsFixed(2)}';
-    row.cells[1].value = '${insurence.toStringAsFixed(2)}';
-    row.cells[2].value = '${down_payment_percentage.toStringAsFixed(2)}';
+    row.cells[0].value = interest.toStringAsFixed(2);
+    row.cells[1].value = insurence.toStringAsFixed(2);
+    row.cells[2].value = down_payment_percentage.toStringAsFixed(2);
     row.cells[3].value = '${no_of_months.toInt()}';
-    row.cells[4].value = '${last_payment.toStringAsFixed(2)}';
+    row.cells[4].value = last_payment.toStringAsFixed(2);
     grid.style.cellPadding = PdfPaddings(left: 2, right: 2, top: 2, bottom: 2);
     PdfGridCellStyle cellStyle = PdfGridCellStyle();
     cellStyle.borders.all = PdfPens.white;
@@ -267,7 +267,7 @@ class _screenTwoState extends State<screenTwo> {
             graphics.clientSize.width, graphics.clientSize.height - 100),
         format: layoutFormat)!;
     gridResult.page.graphics.drawString(
-        'Car Value :                             ${monthlyInstallment_}',
+        'Car Value :                             $monthlyInstallment_',
         subHeadingFont,
         brush: PdfSolidBrush(PdfColor(126, 155, 203)),
         bounds: Rect.fromLTWH(520, gridResult.bounds.bottom + 10, 0, 0));
@@ -541,9 +541,6 @@ class _screenTwoState extends State<screenTwo> {
                           ),
                         ),
 
-                        // TheBar(dataa[0].description, controller[0], checkBox[0], dataa[0].defaultValue.toString() , double.parse(dataa[0].minValue).toString(),
-                        //     double.parse(dataa[0].maxValue).toString()),
-                        // TheBar(interestValue),
                         SizedBox(
                           child: ListView.builder(
                             shrinkWrap: true,
@@ -551,58 +548,53 @@ class _screenTwoState extends State<screenTwo> {
                             itemCount: dataa.length,
                             itemBuilder: (BuildContext context, int index) {
                               _value = double.parse(dataa[index].defaultValue);
-                              //num[index]=double.parse('${dataa[index].defaultValue}');
                               return Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical:15 ),
                                 child: SingleChildScrollView(
                                   child: Container(
                                     padding: const EdgeInsets.only(left: 20),
-                                    //color: Colors.blueGrey,
                                     height: 50,
                                     child: Row(
                                       children: [
                                         Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:CrossAxisAlignment.start,
                                           children: [
                                             Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment:MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
                                                   dataa[index].description,
-                                                  style: const TextStyle(
-                                                      fontSize: 10,
-                                                      color: Colors.black),
+                                                  style: const TextStyle(fontSize: 10,color: Colors.black),
                                                 ),
                                                 const SizedBox(
-                                                  width: 25,
+                                                  width: 5,
                                                 ),
-                                                Align(
-                                                  alignment: Alignment.topRight,
-                                                  child: SizedBox(
-                                                    width: 10,
-                                                    height: 10,
-                                                    child: Transform.scale(
-                                                      scale: 1.0,
-                                                      child: Switch(
-                                                          //inactiveThumbColor: Colors.black,
-                                                          activeColor: const Color(0xff4263eb),
-                                                          value: checkBox[index] ?? false,
-                                                          onChanged: (check) {
-                                                            setState(() {
-                                                              print(checkBox[index].toString());
-                                                              checkBox[index] = check;
-                                                            });
-                                                          }),
+                                                StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) {
+                                                  return Align(
+                                                    alignment: Alignment.topRight,
+                                                    child: SizedBox(
+                                                      width: 45,
+                                                      height: 22,
+                                                      child: Transform.scale(
+                                                        scale: 1.0,
+                                                        child: Switch(
+                                                            activeColor: const Color(0xff4263eb),
+                                                            value: checkBox[index]!,
+                                                            onChanged: (check) {
+                                                              setState(() {
+                                                                print(checkBox[index].toString());
+                                                                checkBox[index] = !checkBox[index]!;
+                                                              });
+                                                            }),
+                                                      ),
                                                     ),
-                                                  ),
-                                                ),
+                                                  );
+                                                },)
+
                                               ],
-                                            ),
-                                            const SizedBox(
-                                              height: 8,
                                             ),
                                             Container(
                                               width: 100,
@@ -612,7 +604,7 @@ class _screenTwoState extends State<screenTwo> {
                                                   borderRadius: BorderRadius.all(
                                                       Radius.circular(5))),
                                               child: TextField(
-                                                enabled: checkBox[index] ?? false,
+                                                enabled: !checkBox[index]!,
                                                 controller: controller[index],
                                                 onChanged: (value) {
                                                   setState(() {
@@ -668,142 +660,139 @@ class _screenTwoState extends State<screenTwo> {
                                             ),
                                           ],
                                         ),
-                                        Transform.translate(
-                                          offset: const Offset(0, 13),
-                                          child: Column(
-                                            children: [
-                                              overlayimage != null
-                                                  ? StatefulBuilder(
-                                                      builder: (BuildContext
-                                                              context,
-                                                          void Function(
-                                                                  void Function())
-                                                              setState) {
-                                                        return SizedBox(
-                                                          height: 30,
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width -
-                                                              140,
-                                                          child: SliderTheme(
-                                                            data: SliderThemeData(
-                                                              trackHeight: 12,
-                                                              inactiveTrackColor:
-                                                                  Colors.black12,
-                                                              activeTickMarkColor:
-                                                                  const Color(
-                                                                      0xff4263eb),
-                                                              thumbColor:
-                                                                  Colors.black,
-                                                              thumbShape:
-                                                                  SliderThumbImage(
-                                                                      overlayimage!),
-                                                            ),
-                                                            child: Slider(
-                                                              min: double.parse(
-                                                                  '${dataa[index].minValue}'),
-                                                              max: double.parse(
-                                                                  '${dataa[index].maxValue}'),
-                                                              value: abc[index],
-                                                              onChanged: (val) {
-                                                                setState(() {
-                                                                  abc[index] =
-                                                                      val;
-                                                                  if (index ==
-                                                                      0) {
-                                                                    controller[
-                                                                            index]
-                                                                        .text = double
-                                                                            .parse(val
-                                                                                .toString())
-                                                                        .toStringAsFixed(
-                                                                            2)
-                                                                        .toString();
-                                                                    interest =
-                                                                        abc[index];
-                                                                  } else if (index ==
-                                                                      1) {
-                                                                    controller[
-                                                                            index]
-                                                                        .text = double
-                                                                            .parse(val
-                                                                                .toString())
-                                                                        .toStringAsFixed(
-                                                                            2)
-                                                                        .toString();
-                                                                    insurence =
-                                                                        abc[index];
-                                                                  } else if (index ==
-                                                                      2) {
-                                                                    controller[
-                                                                            index]
-                                                                        .text = double
-                                                                            .parse(val
-                                                                                .toString())
-                                                                        .toStringAsFixed(
-                                                                            2)
-                                                                        .toString();
-                                                                    down_payment_percentage =
-                                                                        abc[index];
-                                                                  } else if (index ==
-                                                                      3) {
-                                                                    controller[
-                                                                            index]
-                                                                        .text = double
-                                                                            .parse(val
-                                                                                .toString())
-                                                                        .toStringAsFixed(
-                                                                            2)
-                                                                        .toString();
-                                                                    last_payment =
-                                                                        abc[index];
-                                                                  } else if (index ==
-                                                                      4) {
-                                                                    controller[
-                                                                            index]
-                                                                        .text = double
-                                                                            .parse(val
-                                                                                .toString())
-                                                                        .toStringAsFixed(
-                                                                            0)
-                                                                        .toString();
-                                                                    no_of_months =
-                                                                        abc[index];
-                                                                  }
-                                                                  calculate(
-                                                                      no_of_months,
-                                                                      interest,
-                                                                      down_payment_percentage,
-                                                                      insurence,
-                                                                      last_payment,
-                                                                      car_price);
-                                                                });
-                                                                controller[index]
-                                                                        .text =
-                                                                    val.toString();
-                                                              },
-                                                            ),
+                                        Column(
+                                          children: [
+                                            overlayimage != null
+                                                ? StatefulBuilder(
+                                                    builder: (BuildContext
+                                                            context,
+                                                        void Function(
+                                                                void Function())
+                                                            setState) {
+                                                      return SizedBox(
+                                                        height: 30,
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width -
+                                                            140,
+                                                        child: SliderTheme(
+                                                          data: SliderThemeData(
+                                                            trackHeight: 12,
+                                                            inactiveTrackColor:
+                                                                Colors.black12,
+                                                            activeTickMarkColor:
+                                                                const Color(
+                                                                    0xff4263eb),
+                                                            thumbColor:
+                                                                Colors.black,
+                                                            thumbShape:
+                                                                SliderThumbImage(
+                                                                    overlayimage!),
                                                           ),
-                                                        );
-                                                      },
-                                                    )
-                                                  : Container(),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.spaceEvenly,
-                                                children: [
-                                                  Text(
-                                                      "${dataa[index].minValue}"),
-                                                  SizedBox(
-                                                    width: 100,
-                                                  ),
-                                                  Text(
-                                                      "${dataa[index].maxValue}"),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                                          child: Slider(
+                                                            min: double.parse(
+                                                                dataa[index].minValue),
+                                                            max: double.parse(
+                                                                dataa[index].maxValue),
+                                                            value: abc[index],
+                                                            onChanged: (val) {
+                                                              setState(() {
+                                                                abc[index] =
+                                                                    val;
+                                                                if (index ==
+                                                                    0) {
+                                                                  controller[
+                                                                          index]
+                                                                      .text = double
+                                                                          .parse(val
+                                                                              .toString())
+                                                                      .toStringAsFixed(
+                                                                          2)
+                                                                      .toString();
+                                                                  interest =
+                                                                      abc[index];
+                                                                } else if (index ==
+                                                                    1) {
+                                                                  controller[
+                                                                          index]
+                                                                      .text = double
+                                                                          .parse(val
+                                                                              .toString())
+                                                                      .toStringAsFixed(
+                                                                          2)
+                                                                      .toString();
+                                                                  insurence =
+                                                                      abc[index];
+                                                                } else if (index ==
+                                                                    2) {
+                                                                  controller[
+                                                                          index]
+                                                                      .text = double
+                                                                          .parse(val
+                                                                              .toString())
+                                                                      .toStringAsFixed(
+                                                                          2)
+                                                                      .toString();
+                                                                  down_payment_percentage =
+                                                                      abc[index];
+                                                                } else if (index ==
+                                                                    3) {
+                                                                  controller[
+                                                                          index]
+                                                                      .text = double
+                                                                          .parse(val
+                                                                              .toString())
+                                                                      .toStringAsFixed(
+                                                                          2)
+                                                                      .toString();
+                                                                  last_payment =
+                                                                      abc[index];
+                                                                } else if (index ==
+                                                                    4) {
+                                                                  controller[
+                                                                          index]
+                                                                      .text = double
+                                                                          .parse(val
+                                                                              .toString())
+                                                                      .toStringAsFixed(
+                                                                          0)
+                                                                      .toString();
+                                                                  no_of_months =
+                                                                      abc[index];
+                                                                }
+                                                                calculate(
+                                                                    no_of_months,
+                                                                    interest,
+                                                                    down_payment_percentage,
+                                                                    insurence,
+                                                                    last_payment,
+                                                                    car_price);
+                                                              });
+                                                              controller[index]
+                                                                      .text =
+                                                                  val.toString();
+                                                            },
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  )
+                                                : Container(),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Text(
+                                                    dataa[index].minValue),
+                                                const SizedBox(
+                                                  width: 100,
+                                                ),
+                                                Text(
+                                                    dataa[index].maxValue),
+                                              ],
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -845,11 +834,11 @@ class _screenTwoState extends State<screenTwo> {
                               child: ElevatedButton(
                                 style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all(
-                                        Color(0xff4263eb))),
+                                        const Color(0xff4263eb))),
                                 onPressed: () async {
                                   send();
                                 },
-                                child: Text(
+                                child: const Text(
                                   "Email",
                                   style: TextStyle(color: Colors.white),
                                 ),
@@ -976,13 +965,13 @@ class _screenTwoState extends State<screenTwo> {
                                 data: SliderThemeData(
                                   trackHeight: 12,
                                   inactiveTrackColor: Colors.black12,
-                                  activeTickMarkColor: Color(0xff4263eb),
+                                  activeTickMarkColor: const Color(0xff4263eb),
                                   thumbColor: Colors.black,
                                   thumbShape: SliderThumbImage(overlayimage!),
                                 ),
                                 child: Slider(
-                                  min: double.parse('${dataa[0].minValue}'),
-                                  max: double.parse('${dataa[0].maxValue}'),
+                                  min: double.parse(dataa[0].minValue),
+                                  max: double.parse(dataa[0].maxValue),
                                   value: abc[0],
                                   onChanged: (val) {
                                     // setState(() {
@@ -1019,11 +1008,11 @@ class _screenTwoState extends State<screenTwo> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text("${dataa[0].minValue}"),
-                      SizedBox(
+                      Text(dataa[0].minValue),
+                      const SizedBox(
                         width: 100,
                       ),
-                      Text("${dataa[0].maxValue}"),
+                      Text(dataa[0].maxValue),
                     ],
                   ),
                 ],

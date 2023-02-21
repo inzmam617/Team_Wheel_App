@@ -7,16 +7,19 @@ import '../Drawer/drawer.dart';
 import '../Services/apiService.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class screenOne extends StatefulWidget {
   const screenOne({Key? key}) : super(key: key);
 
   @override
   State<screenOne> createState() => _screenOneState();
 }
-bool isAnimating = true;
-enum ButtonState { init, submitting, completed }
-class _screenOneState extends State<screenOne> {
 
+bool isAnimating = true;
+
+enum ButtonState { init, submitting, completed }
+
+class _screenOneState extends State<screenOne> {
   final images = [
     "assets/Vector.png",
     "assets/Vector.png",
@@ -30,79 +33,32 @@ class _screenOneState extends State<screenOne> {
   bool isDisabledPlone = false;
   bool isDisabledMlone = false;
   bool isDisabledClimit = false;
-  TextEditingController salary=TextEditingController(text: "0");
-  TextEditingController auto_lease=TextEditingController(text: "0");
-  TextEditingController personal_loan=TextEditingController(text: "0");
-  TextEditingController mortgage_loan=TextEditingController(text: "0");
-  TextEditingController creditcard_limit=TextEditingController(text: "0");
-  String name=" ";
+  TextEditingController salary = TextEditingController(text: "0");
+  TextEditingController auto_lease = TextEditingController(text: "0");
+  TextEditingController personal_loan = TextEditingController(text: "0");
+  TextEditingController mortgage_loan = TextEditingController(text: "0");
+  TextEditingController creditcard_limit = TextEditingController(text: "0");
+  String name = " ";
+
   @override
   void initState() {
     super.initState();
     initialize();
   }
-  void initialize()async{
-    final prefs = await SharedPreferences.getInstance();
-    name=prefs.getString('name').toString();
-  }
-  // int _selectedIndex = 0;
-  // final List<Widget> _children = [
-  //   const chooseanguage(),
-  //   SignIn(),
-  //   Signup(),
-  //   profilepage(),
-  // ];
 
-  // void _onItemTapped(int index) {
-  //   setState(() {
-  //     _selectedIndex = index;
-  //   });
-  //   Navigator.pushReplacement(context,PageRouteBuilder(
-  //     pageBuilder: (context, animation1, animation2) => _children[_selectedIndex],
-  //   ));
-  // }
+  void initialize() async {
+    final prefs = await SharedPreferences.getInstance();
+    name = prefs.getString('name').toString();
+  }
+
   ButtonState state = ButtonState.init;
+
   @override
   Widget build(BuildContext context) {
     final buttonWidth = MediaQuery.of(context).size.width;
     final isInit = isAnimating || state == ButtonState.init;
     final isDone = state == ButtonState.completed;
     return Scaffold(
-      // bottomNavigationBar: Container(
-      //     decoration: const BoxDecoration(
-      //       borderRadius: BorderRadius.all(Radius.circular(30)),
-      //       boxShadow: [
-      //         BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
-      //       ],
-      //     ),
-      //     child: ClipRRect(
-      //       borderRadius: const BorderRadius.only(
-      //         topLeft: Radius.circular(30.0),
-      //         topRight: Radius.circular(30.0),
-      //       ),
-      //       child: BottomNavigationBar(
-      //         type: BottomNavigationBarType.fixed,
-      //         showSelectedLabels: false,
-      //         showUnselectedLabels: false,
-      //         selectedFontSize: 12,
-      //         unselectedFontSize: 12,
-      //         currentIndex: _selectedIndex,
-      //         onTap: _onItemTapped,
-      //         unselectedItemColor: Colors.blue,
-      //         selectedItemColor: Colors.amber[800],
-      //         items: const <BottomNavigationBarItem>[
-      //           BottomNavigationBarItem(
-      //               icon: Icon(Icons.home_filled),label: 'Favourite' ),
-      //           BottomNavigationBarItem(
-      //               icon: Icon(Icons.bookmark),label: 'Favourite' ),
-      //           BottomNavigationBarItem(
-      //               icon: Icon(Icons.album),label: 'Favourite' ),
-      //           BottomNavigationBarItem(
-      //               icon: Icon(Icons.person_outlined),label: 'Favourite' ),
-      //         ],
-      //       ),
-      //     )
-      // ),
       appBar: AppBar(
         leading: Builder(builder: (context) {
           return IconButton(
@@ -145,21 +101,22 @@ class _screenOneState extends State<screenOne> {
                 Padding(
                   padding: const EdgeInsets.only(left: 20),
                   child: Row(
-                    children:  [
-                       Text(
-                         AppLocalizations.of(context)?.message ??  "",
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)?.message ?? "",
                         style: const TextStyle(fontSize: 18),
                       ),
                       Text(
                         " ${name.toUpperCase()}",
-                        style: const TextStyle(color: Colors.black54, fontSize: 28),
+                        style: const TextStyle(
+                            color: Colors.black54, fontSize: 28),
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                    padding: const EdgeInsets.only(
-                         bottom: 5, left: 20, right: 10),
+                    padding:
+                        const EdgeInsets.only(bottom: 5, left: 20, right: 10),
                     child: Column(
                       children: [
                         CarouselSlider.builder(
@@ -173,8 +130,8 @@ class _screenOneState extends State<screenOne> {
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
-                                  borderRadius:
-                                      const BorderRadius.all(Radius.circular(20)),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(20)),
                                   boxShadow: const [
                                     BoxShadow(
                                         color: Colors.black, blurRadius: 2)
@@ -182,8 +139,6 @@ class _screenOneState extends State<screenOne> {
                                   //color: Colors.black,
                                   image: DecorationImage(
                                       image: AssetImage(url), fit: BoxFit.fill),
-                                  // borderRadius: const BorderRadius.all(
-                                  //     Radius.circular(20)),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.only(
@@ -269,8 +224,10 @@ class _screenOneState extends State<screenOne> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.end,
                                               children: [
-                                                 Text(
-                                                  AppLocalizations.of(context)?.monthly_installment ??  "",
+                                                Text(
+                                                  AppLocalizations.of(context)
+                                                          ?.monthly_installment ??
+                                                      "",
                                                   style: const TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
@@ -334,541 +291,46 @@ class _screenOneState extends State<screenOne> {
                           height: 10,
                         ),
                       ],
-                    )
-                    ),
-                // Column(
-                //   children: [
-                //     Padding(
-                //       padding: const EdgeInsets.only(left: 35, right: 10),
-                //       child: Row(
-                //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //         children: [
-                //            Text(
-                //              AppLocalizations.of(context)?.salary ??  "",
-                //             style: TextStyle(
-                //                 color: Colors.black54,
-                //                 fontSize: 14,
-                //                 fontWeight: FontWeight.bold),
-                //           ),
-                //           Material(
-                //             elevation: 5,
-                //             borderRadius:
-                //                 const BorderRadius.all(Radius.circular(20)),
-                //             child: Container(
-                //               height: 15,
-                //               width: 40,
-                //               decoration: const BoxDecoration(
-                //                   boxShadow: [
-                //                     BoxShadow(
-                //                         blurRadius: 0.2, color: Colors.white)
-                //                   ],
-                //                   color: Colors.white10,
-                //                   borderRadius:
-                //                       BorderRadius.all(Radius.circular(20))),
-                //               child: Transform.scale(
-                //                 scale: 0.7,
-                //                 child: Switch(
-                //                     inactiveThumbColor: Colors.black,
-                //                     activeColor: const Color(0xff4263eb),
-                //                     value: isDisabledsal,
-                //                     onChanged: (check) {
-                //                       setState(() {
-                //                         isDisabledsal = check;
-                //                         print(isDisabledsal);
-                //                       });
-                //                     }),
-                //               ),
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //     const SizedBox(
-                //       height: 10,
-                //     ),
-                //     Padding(
-                //       padding: const EdgeInsets.only(right: 5),
-                //       child: Material(
-                //         elevation: 5,
-                //         borderRadius: const BorderRadius.only(
-                //             topRight: Radius.circular(4),
-                //             bottomRight: Radius.circular(4)),
-                //         child: Row(
-                //           children: [
-                //             Container(
-                //               color: const Color(0xff4263eb),
-                //               width: 20,
-                //               height: 30,
-                //             ),
-                //             Expanded(
-                //               child: Container(
-                //                 height: 30,
-                //                 decoration: BoxDecoration(
-                //                     color: Colors.white,
-                //                     borderRadius: const BorderRadius.only(
-                //                         topRight: Radius.circular(4),
-                //                         bottomRight: Radius.circular(4)),
-                //                     boxShadow: [
-                //                       BoxShadow(
-                //                           blurRadius: 3,
-                //                           color: Colors.deepPurpleAccent
-                //                               .withOpacity(0.2),
-                //                           offset: const Offset(0.0, 0.45))
-                //                     ]),
-                //                 child: TextFormField(
-                //                   controller: salary,
-                //                   enabled: isDisabledsal,
-                //                   maxLength: 5,
-                //                   keyboardType: TextInputType.number,
-                //                   cursorColor: Colors.black,
-                //                   decoration: const InputDecoration(
-                //                       hintText: "0.0",
-                //                       counterText: "",
-                //                       border: InputBorder.none,
-                //                       contentPadding: EdgeInsets.only(
-                //                           left: 10, bottom: 13)),
-                //                 ),
-                //               ),
-                //             )
-                //           ],
-                //         ),
-                //       ),
-                //     )
-                //   ],
-                // ),
-                _customBar(AppLocalizations.of(context)?.salary ??  "", salary),
+                    )),
+                _customBar(AppLocalizations.of(context)?.salary ?? "", salary),
                 const SizedBox(
                   height: 10,
                 ),
-                // Column(
-                //   children: [
-                //     Padding(
-                //       padding: const EdgeInsets.only(left: 35, right: 10),
-                //       child: Row(
-                //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //         children: [
-                //            Text(
-                //              AppLocalizations.of(context)?.autoLease ??  "",
-                //             style: TextStyle(
-                //                 color: Colors.black54,
-                //                 fontSize: 14,
-                //                 fontWeight: FontWeight.bold),
-                //           ),
-                //           Material(
-                //             elevation: 5,
-                //             borderRadius:
-                //                 const BorderRadius.all(Radius.circular(20)),
-                //             child: Container(
-                //               height: 15,
-                //               width: 40,
-                //               decoration: const BoxDecoration(
-                //                   boxShadow: [
-                //                     BoxShadow(
-                //                         blurRadius: 0.2, color: Colors.white)
-                //                   ],
-                //                   color: Colors.white10,
-                //                   borderRadius:
-                //                       BorderRadius.all(Radius.circular(20))),
-                //               child: Transform.scale(
-                //                 scale: 0.7,
-                //                 child: Switch(
-                //                     inactiveThumbColor: Colors.black,
-                //                     activeColor: const Color(0xff4263eb),
-                //                     value: isDisabledlease,
-                //                     onChanged: (check) {
-                //                       setState(() {
-                //                         isDisabledlease = check;
-                //                         print(isDisabledlease);
-                //                       });
-                //                     }),
-                //               ),
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //     const SizedBox(
-                //       height: 10,
-                //     ),
-                //     Padding(
-                //       padding: const EdgeInsets.only(right: 5),
-                //       child: Material(
-                //         elevation: 5,
-                //         borderRadius: const BorderRadius.only(
-                //             topRight: Radius.circular(4),
-                //             bottomRight: Radius.circular(4)),
-                //         child: Row(
-                //           children: [
-                //             Container(
-                //               color: const Color(0xff4263eb),
-                //               width: 20,
-                //               height: 30,
-                //             ),
-                //             Expanded(
-                //               child: Container(
-                //                 height: 30,
-                //                 decoration: BoxDecoration(
-                //                     color: Colors.white,
-                //                     borderRadius: const BorderRadius.only(
-                //                         topRight: Radius.circular(4),
-                //                         bottomRight: Radius.circular(4)),
-                //                     boxShadow: [
-                //                       BoxShadow(
-                //                           blurRadius: 3,
-                //                           color: Colors.deepPurpleAccent
-                //                               .withOpacity(0.2),
-                //                           offset: const Offset(0.0, 0.45))
-                //                     ]),
-                //                 child: TextFormField(
-                //                   controller: auto_lease,
-                //                   enabled: isDisabledlease,
-                //                   maxLength: 5,
-                //                   keyboardType: TextInputType.number,
-                //                   cursorColor: Colors.black,
-                //                   decoration: const InputDecoration(
-                //                       hintText: "0.0",
-                //                       counterText: "",
-                //                       border: InputBorder.none,
-                //                       contentPadding: EdgeInsets.only(
-                //                           left: 10, bottom: 13)),
-                //                 ),
-                //               ),
-                //             )
-                //           ],
-                //         ),
-                //       ),
-                //     )
-                //   ],
-                // ),
-                _customBar(AppLocalizations.of(context)?.autoLease ??  "", auto_lease),
+                _customBar(
+                    AppLocalizations.of(context)?.autoLease ?? "", auto_lease),
                 const SizedBox(
                   height: 10,
                 ),
-                // Column(
-                //   children: [
-                //     Padding(
-                //       padding: const EdgeInsets.only(left: 35, right: 10),
-                //       child: Row(
-                //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //         children: [
-                //            Text(
-                //             AppLocalizations.of(context)?.personal_Loan ??  "",
-                //             style: TextStyle(
-                //                 color: Colors.black54,
-                //                 fontSize: 14,
-                //                 fontWeight: FontWeight.bold),
-                //           ),
-                //           Material(
-                //             elevation: 5,
-                //             borderRadius:
-                //                 const BorderRadius.all(Radius.circular(20)),
-                //             child: Container(
-                //               height: 15,
-                //               width: 40,
-                //               decoration: const BoxDecoration(
-                //                   boxShadow: [
-                //                     BoxShadow(
-                //                         blurRadius: 0.2, color: Colors.white)
-                //                   ],
-                //                   color: Colors.white10,
-                //                   borderRadius:
-                //                       BorderRadius.all(Radius.circular(20))),
-                //               child: Transform.scale(
-                //                 scale: 0.7,
-                //                 child: Switch(
-                //                     inactiveThumbColor: Colors.black,
-                //                     activeColor: const Color(0xff4263eb),
-                //                     value: isDisabledPlone,
-                //                     onChanged: (check) {
-                //                       setState(() {
-                //                         isDisabledPlone = check;
-                //                         print(isDisabledPlone);
-                //                       });
-                //                     }),
-                //               ),
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //     const SizedBox(
-                //       height: 10,
-                //     ),
-                //     Padding(
-                //       padding: const EdgeInsets.only(right: 5),
-                //       child: Material(
-                //         elevation: 5,
-                //         borderRadius: const BorderRadius.only(
-                //             topRight: Radius.circular(4),
-                //             bottomRight: Radius.circular(4)),
-                //         child: Row(
-                //           children: [
-                //             Container(
-                //               color: const Color(0xff4263eb),
-                //               width: 20,
-                //               height: 30,
-                //             ),
-                //             Expanded(
-                //               child: Container(
-                //                 height: 30,
-                //                 decoration: BoxDecoration(
-                //                     color: Colors.white,
-                //                     borderRadius: const BorderRadius.only(
-                //                         topRight: Radius.circular(4),
-                //                         bottomRight: Radius.circular(4)),
-                //                     boxShadow: [
-                //                       BoxShadow(
-                //                           blurRadius: 3,
-                //                           color: Colors.deepPurpleAccent
-                //                               .withOpacity(0.2),
-                //                           offset: const Offset(0.0, 0.45))
-                //                     ]),
-                //                 child: TextFormField(
-                //                   controller: personal_loan,
-                //                   enabled: isDisabledPlone,
-                //                   maxLength: 5,
-                //                   keyboardType: TextInputType.number,
-                //                   cursorColor: Colors.black,
-                //                   decoration: const InputDecoration(
-                //                       hintText: "0.0",
-                //                       counterText: "",
-                //                       border: InputBorder.none,
-                //                       contentPadding: EdgeInsets.only(
-                //                           left: 10, bottom: 13)),
-                //                 ),
-                //               ),
-                //             )
-                //           ],
-                //         ),
-                //       ),
-                //     )
-                //   ],
-                // ),
-                _customBar( AppLocalizations.of(context)?.personal_Loan ??  "", personal_loan),
+                _customBar(AppLocalizations.of(context)?.personal_Loan ?? "",
+                    personal_loan),
                 const SizedBox(
                   height: 10,
                 ),
-                // Column(
-                //   children: [
-                //     Padding(
-                //       padding: const EdgeInsets.only(left: 35, right: 10),
-                //       child: Row(
-                //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //         children: [
-                //            Text(
-                //             AppLocalizations.of(context)?.mortgage_lone ??  "",
-                //             style: TextStyle(
-                //                 color: Colors.black54,
-                //                 fontSize: 14,
-                //                 fontWeight: FontWeight.bold),
-                //           ),
-                //           Material(
-                //             elevation: 5,
-                //             borderRadius:
-                //                 const BorderRadius.all(Radius.circular(20)),
-                //             child: Container(
-                //               height: 15,
-                //               width: 40,
-                //               decoration: const BoxDecoration(
-                //                   boxShadow: [
-                //                     BoxShadow(
-                //                         blurRadius: 0.2, color: Colors.white)
-                //                   ],
-                //                   color: Colors.white10,
-                //                   borderRadius:
-                //                       BorderRadius.all(Radius.circular(20))),
-                //               child: Transform.scale(
-                //                 scale: 0.7,
-                //                 child: Switch(
-                //                     inactiveThumbColor: Colors.black,
-                //                     activeColor: const Color(0xff4263eb),
-                //                     value: isDisabledMlone,
-                //                     onChanged: (check) {
-                //                       setState(() {
-                //                         isDisabledMlone = check;
-                //                         print(isDisabledMlone);
-                //                       });
-                //                     }),
-                //               ),
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //     const SizedBox(
-                //       height: 10,
-                //     ),
-                //     Padding(
-                //       padding: const EdgeInsets.only(right: 5),
-                //       child: Material(
-                //         elevation: 5,
-                //         borderRadius: const BorderRadius.only(
-                //             topRight: Radius.circular(4),
-                //             bottomRight: Radius.circular(4)),
-                //         child: Row(
-                //           children: [
-                //             Container(
-                //               color: const Color(0xff4263eb),
-                //               width: 20,
-                //               height: 30,
-                //             ),
-                //             Expanded(
-                //               child: Container(
-                //                 height: 30,
-                //                 decoration: BoxDecoration(
-                //                     color: Colors.white,
-                //                     borderRadius: const BorderRadius.only(
-                //                         topRight: Radius.circular(4),
-                //                         bottomRight: Radius.circular(4)),
-                //                     boxShadow: [
-                //                       BoxShadow(
-                //                           blurRadius: 3,
-                //                           color: Colors.deepPurpleAccent
-                //                               .withOpacity(0.2),
-                //                           offset: const Offset(0.0, 0.45))
-                //                     ]),
-                //                 child: TextFormField(
-                //                   controller: mortgage_loan,
-                //                   enabled: isDisabledMlone,
-                //                   maxLength: 5,
-                //                   keyboardType: TextInputType.number,
-                //                   cursorColor: Colors.black,
-                //                   decoration: const InputDecoration(
-                //                       hintText: "0.0",
-                //                       counterText: "",
-                //                       border: InputBorder.none,
-                //                       contentPadding: EdgeInsets.only(
-                //                           left: 10, bottom: 13)),
-                //                 ),
-                //               ),
-                //             )
-                //           ],
-                //         ),
-                //       ),
-                //     )
-                //   ],
-                // ),
-                _customBar(  AppLocalizations.of(context)?.mortgage_lone ??  "", mortgage_loan),
+                _customBar(AppLocalizations.of(context)?.mortgage_lone ?? "",
+                    mortgage_loan),
                 const SizedBox(
                   height: 10,
                 ),
-                // Column(
-                //   children: [
-                //     Padding(
-                //       padding: const EdgeInsets.only(left: 35, right: 10),
-                //       child: Row(
-                //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //         children: [
-                //            Text(
-                //             AppLocalizations.of(context)?.credit_card_limit ??  "",
-                //             style: TextStyle(
-                //                 color: Colors.black54,
-                //                 fontSize: 14,
-                //                 fontWeight: FontWeight.bold),
-                //           ),
-                //           Material(
-                //             elevation: 5,
-                //             borderRadius:
-                //                 const BorderRadius.all(Radius.circular(20)),
-                //             child: Container(
-                //               height: 15,
-                //               width: 40,
-                //               decoration: const BoxDecoration(
-                //                   boxShadow: [
-                //                     BoxShadow(
-                //                         blurRadius: 0.2, color: Colors.white)
-                //                   ],
-                //                   color: Colors.white10,
-                //                   borderRadius:
-                //                       BorderRadius.all(Radius.circular(20))),
-                //               child: Transform.scale(
-                //                 scale: 0.7,
-                //                 child: Switch(
-                //                     inactiveThumbColor: Colors.black,
-                //                     activeColor: const Color(0xff4263eb),
-                //                     value: isDisabledClimit,
-                //                     onChanged: (check) {
-                //                       setState(() {
-                //                         isDisabledClimit = check;
-                //                         print(isDisabledClimit);
-                //                       });
-                //                     }),
-                //               ),
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //     const SizedBox(
-                //       height: 10,
-                //     ),
-                //     Padding(
-                //       padding: const EdgeInsets.only(right: 5),
-                //       child: Material(
-                //         elevation: 5,
-                //         borderRadius: const BorderRadius.only(
-                //             topRight: Radius.circular(4),
-                //             bottomRight: Radius.circular(4)),
-                //         child: Row(
-                //           children: [
-                //             Container(
-                //               color: const Color(0xff4263eb),
-                //               width: 20,
-                //               height: 30,
-                //             ),
-                //             Expanded(
-                //               child: Container(
-                //                 height: 30,
-                //                 decoration: BoxDecoration(
-                //                     color: Colors.white,
-                //                     borderRadius: const BorderRadius.only(
-                //                         topRight: Radius.circular(4),
-                //                         bottomRight: Radius.circular(4)),
-                //                     boxShadow: [
-                //                       BoxShadow(
-                //                           blurRadius: 3,
-                //                           color: Colors.deepPurpleAccent
-                //                               .withOpacity(0.2),
-                //                           offset: const Offset(0.0, 0.45))
-                //                     ]),
-                //                 child: TextFormField(
-                //                   controller: creditcard_limit,
-                //                   enabled: isDisabledClimit,
-                //                   maxLength: 5,
-                //                   keyboardType: TextInputType.number,
-                //                   cursorColor: Colors.black,
-                //                   decoration: const InputDecoration(
-                //                       hintText: "0.0",
-                //                       counterText: "",
-                //                       border: InputBorder.none,
-                //                       contentPadding: EdgeInsets.only(
-                //                           left: 10, bottom: 13)),
-                //                 ),
-                //               ),
-                //             )
-                //           ],
-                //         ),
-                //       ),
-                //     )
-                //   ],
-                // ),
-                _customBar(AppLocalizations.of(context)?.credit_card_limit ??  "",creditcard_limit),
+                _customBar(
+                    AppLocalizations.of(context)?.credit_card_limit ?? "",
+                    creditcard_limit),
                 const SizedBox(
                   height: 15,
                 ),
                 SizedBox(
-                  width: 180,
-                  height: 40,
-                  child:AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      onEnd: () => setState(() {
-                        isAnimating = !isAnimating;
-                      }),
-                      width: state == ButtonState.init ? buttonWidth : 100,
-                      height: 60,
-                      // If Button State is Submiting or Completed  show 'buttonCircular' widget as below
-                      child: isInit ? buildButton() : circularContainer(isDone))
-                ),
+                    width: 180,
+                    height: 40,
+                    child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        onEnd: () => setState(() {
+                              isAnimating = !isAnimating;
+                            }),
+                        width: state == ButtonState.init ? buttonWidth : 100,
+                        height: 60,
+                        // If Button State is Submiting or Completed  show 'buttonCircular' widget as below
+                        child: isInit
+                            ? buildButton()
+                            : circularContainer(isDone))),
               ],
             ),
           ),
@@ -876,8 +338,9 @@ class _screenOneState extends State<screenOne> {
       ]),
     );
   }
-  Widget _customBar(text,controller){
-    return   Column(
+
+  Widget _customBar(text, controller) {
+    return Column(
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 35, right: 10),
@@ -894,33 +357,7 @@ class _screenOneState extends State<screenOne> {
               ),
               const Material(
                 elevation: 5,
-                borderRadius:
-                BorderRadius.all(Radius.circular(20)),
-                // child: Container(
-                //   height: 15,
-                //   width: 40,
-                //   decoration: const BoxDecoration(
-                //       boxShadow: [
-                //         BoxShadow(
-                //             blurRadius: 0.2, color: Colors.white)
-                //       ],
-                //       color: Colors.white10,
-                //       borderRadius:
-                //       BorderRadius.all(Radius.circular(20))),
-                //   child: Transform.scale(
-                //     scale: 0.7,
-                //     child: Switch(
-                //         inactiveThumbColor: Colors.black,
-                //         activeColor: const Color(0xff4263eb),
-                //         value: value,
-                //         onChanged: (check) {
-                //           setState(() {
-                //             value = check;
-                //             print(value);
-                //           });
-                //         }),
-                //   ),
-                // ),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
             ],
           ),
@@ -929,32 +366,23 @@ class _screenOneState extends State<screenOne> {
           height: 10,
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Material(
             elevation: 5,
-            borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(4),
-                bottomRight: Radius.circular(4)),
+            borderRadius: const BorderRadius.all(Radius.circular(5)),
             child: Row(
               children: [
-                Container(
-                  color: const Color(0xff4263eb),
-                  width: 20,
-                  height: 30,
-                ),
                 Expanded(
                   child: Container(
-                    height: 30,
+                    height: 40,
                     decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(4),
-                            bottomRight: Radius.circular(4)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5)),
                         boxShadow: [
                           BoxShadow(
                               blurRadius: 3,
-                              color: Colors.deepPurpleAccent
-                                  .withOpacity(0.2),
+                              color: Colors.deepPurpleAccent.withOpacity(0.2),
                               offset: const Offset(0.0, 0.45))
                         ]),
                     child: TextFormField(
@@ -967,8 +395,7 @@ class _screenOneState extends State<screenOne> {
                           hintText: "0.0",
                           counterText: "",
                           border: InputBorder.none,
-                          contentPadding: EdgeInsets.only(
-                              left: 10, bottom: 13)),
+                          contentPadding: EdgeInsets.only(left: 10,bottom: 5)),
                     ),
                   ),
                 )
@@ -979,104 +406,114 @@ class _screenOneState extends State<screenOne> {
       ],
     );
   }
+
   Widget buildButton() => ElevatedButton(
-    style: ElevatedButton.styleFrom(shape: const StadiumBorder(),foregroundColor: const Color(0xff4263eb),backgroundColor: const Color(0xff4263eb)),
-    onPressed: () async {
-
-      setState(() {
-        state = ButtonState.submitting;
-      });
-      ApiServices.installmentResult(salary.text,auto_lease.text,personal_loan.text,mortgage_loan.text,creditcard_limit.text).then((success){
-        print("success:$success");
-        showModalBottomSheet<void>(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20)
-            ),
-          ),
-          context: context,
-          builder: (BuildContext context) {
-            return SizedBox(
-              height:
-              MediaQuery.of(context).size.height / 3,
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: <Widget>[
-                    const Text(
-                      'Your remaining installment amount is',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Container(
-                      height: 35,
-                      width: 100,
-                      color: const Color(0xfff8f8fe),
-                      child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "SAR",
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xff4263eb)),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(success,
-                              style: const TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.black,
-                                  fontWeight:
-                                  FontWeight.bold))
-                        ],
-                      ),
-                    ),
-
-                    const Text("This is an approximate calculation, for ",style: TextStyle(color: Colors.grey)),
-                    const Text("installment balance you should contact ",style: TextStyle(color: Colors.grey)),
-                    const Text("your bank ",style: TextStyle(color: Colors.grey)),
-                    const SizedBox(height: 10,),
-                    // Text(
-                    //    installment balance you should contact your bank",style: TextStyle(color: Colors.grey),),
-                    ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                const Color(0xff4263eb))),
-                        child:
-                        const Text('VIEW VEHICLES'),
-                        onPressed: () {
-                          // Navigator.of(context).push(MaterialPageRoute(builder: (context) => viewCar(balance: success.toString(),)));
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => screenthree(balance: success.toString(),)));
-                        }
-                    ),
-                  ],
-                ),
+        style: ElevatedButton.styleFrom(
+            shape: const StadiumBorder(),
+            foregroundColor: const Color(0xff4263eb),
+            backgroundColor: const Color(0xff4263eb)),
+        onPressed: () async {
+          setState(() {
+            state = ButtonState.submitting;
+          });
+          ApiServices.installmentResult(salary.text, auto_lease.text,
+                  personal_loan.text, mortgage_loan.text, creditcard_limit.text)
+              .then((success) {
+            print("success:$success");
+            showModalBottomSheet<void>(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20)),
               ),
+              context: context,
+              builder: (BuildContext context) {
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height / 3,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: <Widget>[
+                        const Text(
+                          'Your remaining installment amount is',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        Container(
+                          height: 35,
+                          width: 100,
+                          color: const Color(0xfff8f8fe),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "SAR",
+                                style: TextStyle(
+                                    fontSize: 14, color: Color(0xff4263eb)),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(success,
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold))
+                            ],
+                          ),
+                        ),
+
+                        const Text("This is an approximate calculation, for ",
+                            style: TextStyle(color: Colors.grey)),
+                        const Text("installment balance you should contact ",
+                            style: TextStyle(color: Colors.grey)),
+                        const Text("your bank ",
+                            style: TextStyle(color: Colors.grey)),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        // Text(
+                        //    installment balance you should contact your bank",style: TextStyle(color: Colors.grey),),
+                        ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    const Color(0xff4263eb))),
+                            child: const Text('VIEW VEHICLES'),
+                            onPressed: () {
+                              // Navigator.of(context).push(MaterialPageRoute(builder: (context) => viewCar(balance: success.toString(),)));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => screenthree(
+                                        balance: success.toString(),
+                                      )));
+                            }),
+                      ],
+                    ),
+                  ),
+                );
+              },
             );
-          },
-        );
-      });
-      //await 2 sec // you need to implement your server response here.
-      await Future.delayed(const Duration(seconds: 2));
-      setState(() {
-        state = ButtonState.completed;
-      });
-      await Future.delayed(const Duration(seconds: 2));
-      setState(() {
-        state = ButtonState.init;
-      });
-    },
-    child: const Text('Calculate',style: TextStyle(color: Colors.white),),
-  );
+          });
+          //await 2 sec // you need to implement your server response here.
+          await Future.delayed(const Duration(seconds: 2));
+          setState(() {
+            state = ButtonState.completed;
+          });
+          await Future.delayed(const Duration(seconds: 2));
+          setState(() {
+            state = ButtonState.init;
+          });
+        },
+        child: const Text(
+          'Calculate',
+          style: TextStyle(color: Colors.white),
+        ),
+      );
+
   Widget circularContainer(bool done) {
     final color = done ? const Color(0xff4263eb) : const Color(0xff4263eb);
     return Container(
@@ -1085,12 +522,9 @@ class _screenOneState extends State<screenOne> {
         child: done
             ? const Icon(Icons.done, size: 50, color: Colors.white)
             : const CircularProgressIndicator(
-          color: Colors.white,
-        ),
+                color: Colors.white,
+              ),
       ),
     );
   }
 }
-
-
-

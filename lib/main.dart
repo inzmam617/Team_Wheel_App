@@ -6,7 +6,6 @@ import 'package:teamwheelapp/startup%20screens/signIn.dart';
 import 'package:teamwheelapp/startup%20screens/signup.dart';
 import 'package:teamwheelapp/startup%20screens/splash.dart';
 import 'HomeScreens/ScreenOne.dart';
-import 'HomeScreens/ScreenTwo.dart';
 import 'HomeScreens/Screenthree.dart';
 import 'HomeScreens/profilePage.dart';
 import 'bottomnavbar/bottombar.dart';

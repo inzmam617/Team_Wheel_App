@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Services/apiService.dart';
 
@@ -359,6 +360,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
         ApiServices.verifyOpt(email, code).then((value) {
           if(value=="success"){
             ScaffoldMessenger.of(context).clearSnackBars();
+
+            setIslogin(email);
             Navigator.pushNamed(context, "botombar");
           }else{
             final snackBar = SnackBar(
@@ -377,5 +380,9 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
      // }
 
+  }
+  Future<void> setIslogin(email) async{
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setString("email", email);
   }
 }

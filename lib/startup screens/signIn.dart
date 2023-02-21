@@ -118,62 +118,6 @@ class _SignInState extends State<SignIn> {
                               // this.phoneNo=value;
                             },
                           ),
-                          // Row(
-                          //   children: <Widget>[
-                          //     GestureDetector(
-                          //       onTap: () async {
-                          //         final code = await countryPicker.showPicker(
-                          //             context: context);
-                          //         if (code != null) {
-                          //           setState(() {
-                          //             country = code.dialCode;
-                          //           });
-                          //         }
-                          //       },
-                          //       child: Padding(
-                          //         padding: const EdgeInsets.all(8.0),
-                          //         child: Row(
-                          //           children: [
-                          //             Container(
-                          //               child: Text(country,
-                          //                   style: const TextStyle(
-                          //                       color: Colors.black)),
-                          //             ),
-                          //             const SizedBox(
-                          //               width: 5,
-                          //             ),
-                          //             Transform.rotate(
-                          //                 angle: 270 * math.pi / 180,
-                          //                 child: const Icon(
-                          //                   Icons.arrow_back_ios_new,
-                          //                   size: 15,
-                          //                 ))
-                          //           ],
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     Container(
-                          //       height: 18,
-                          //       width: 1.5,
-                          //       color: Colors.black54,
-                          //     ),
-                          //     const SizedBox(
-                          //       width: 10,
-                          //     ),
-                          //     Expanded(
-                          //       child: TextField(
-                          //         keyboardType: TextInputType.phone,
-                          //         decoration: const InputDecoration(
-                          //           border: InputBorder.none,
-                          //           hintText: "Phone Number",
-                          //         ),
-                          //         onChanged: (value) {
-                          //           // this.phoneNo=value;
-                          //         },
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
                         ),
                       ),
                       const SizedBox(

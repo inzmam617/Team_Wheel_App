@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../l10n/l10n.dart';
 import '../provider/local_provdier.dart';
@@ -17,6 +18,12 @@ class chooseanguage extends StatefulWidget {
 }
 
 class _chooseanguageState extends State<chooseanguage> {
+  @override
+  void initState() {
+    super.initState();
+    GetData();
+  }
+
   String dropdownValue = "English";
 
   @override
@@ -27,34 +34,6 @@ class _chooseanguageState extends State<chooseanguage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // DropdownButtonHideUnderline(
-          //   child: DropdownButton(
-          //     value: locale,
-          //     icon: Container(width: 12),
-          //     items: L10n.all.map(
-          //           (locale) {
-          //         final flag = L10n.getFlag(locale.languageCode);
-          //
-          //         return DropdownMenuItem(
-          //           value: locale,
-          //           onTap: () {
-          //             final provider =
-          //             Provider.of<LocalProvider>(context, listen: false);
-          //
-          //             provider.setLocale(locale);
-          //           },
-          //           child: Center(
-          //             child: Text(
-          //               flag,
-          //               style: const TextStyle(fontSize: 32,color: Colors.black),
-          //             ),
-          //           ),
-          //         );
-          //       },
-          //     ).toList(),
-          //     onChanged: (_) {},
-          //   ),
-          // ),
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: SvgPicture.asset("assets/tamweeli_logo 1.svg"),
@@ -67,12 +46,7 @@ class _chooseanguageState extends State<chooseanguage> {
             child: Container(
               height: 180,
               decoration: const BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 4.0
-                  )
-                ],
+                boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 4.0)],
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 color: Colors.white,
               ),
@@ -80,7 +54,7 @@ class _chooseanguageState extends State<chooseanguage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                     Padding(
+                    Padding(
                       padding: const EdgeInsets.all(10),
                       child: Text(
                         //"Choose Language",
@@ -95,19 +69,20 @@ class _chooseanguageState extends State<chooseanguage> {
                             color: const Color(0xffff0f0f0),
                             borderRadius: BorderRadius.circular(8)),
                         width: MediaQuery.of(context).size.width,
-                        child:  DropdownButtonHideUnderline(
+                        child: DropdownButtonHideUnderline(
                           child: DropdownButton(
                             value: locale,
                             icon: Container(width: 12),
                             items: L10n.all.map(
-                                  (locale) {
+                              (locale) {
                                 final flag = L10n.getCode(locale.languageCode);
 
                                 return DropdownMenuItem(
                                   value: locale,
                                   onTap: () {
-                                    final provider =
-                                    Provider.of<LocalProvider>(context, listen: false);
+                                    final provider = Provider.of<LocalProvider>(
+                                        context,
+                                        listen: false);
 
                                     provider.setLocale(locale);
                                   },
@@ -116,7 +91,8 @@ class _chooseanguageState extends State<chooseanguage> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
                                         flag,
-                                        style: const TextStyle(fontSize: 20,color: Colors.black),
+                                        style: const TextStyle(
+                                            fontSize: 20, color: Colors.black),
                                       ),
                                     ),
                                   ),
@@ -126,34 +102,6 @@ class _chooseanguageState extends State<chooseanguage> {
                             onChanged: (_) {},
                           ),
                         ),
-                        // DropdownButtonFormField<String>(
-                        //   value: dropdownValue,
-                        //   decoration: const InputDecoration(
-                        //     border: InputBorder.none,
-                        //       disabledBorder: InputBorder.none,
-                        //       enabledBorder: InputBorder.none),
-                        //   items:
-                        //   const [
-                        //     DropdownMenuItem(
-                        //         value: "English",
-                        //         child: Padding(
-                        //           padding: EdgeInsets.only(left: 10),
-                        //           child: Text("English"),
-                        //         )),
-                        //     DropdownMenuItem(
-                        //         value: "Arabic",
-                        //         child: Padding(
-                        //           padding: EdgeInsets.only(left: 10),
-                        //           child: Text("Arabic"),
-                        //         ))
-                        //   ]
-                        //   ,
-                        //   onChanged: (String? value) {
-                        //     print(value);
-                        //     dropdownValue = value!;
-                        //     //  print(value);
-                        //   },
-                        // ),
                       ),
                     ),
                     Padding(
@@ -163,8 +111,10 @@ class _chooseanguageState extends State<chooseanguage> {
                         child: ElevatedButton(
                             style: ButtonStyle(
                               elevation: MaterialStateProperty.all(2.0),
-                              backgroundColor: MaterialStateProperty.all(Colors.blue),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.blue),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -173,17 +123,20 @@ class _chooseanguageState extends State<chooseanguage> {
                             onPressed: _isLoading ? null : _onSubmit,
                             child: _isLoading
                                 ? Container(
-                              width: 24,
-                              height: 24,
-                              padding: const EdgeInsets.all(2.0),
-                              child: const CircularProgressIndicator(
-                                color: Colors.white,
-                                strokeWidth: 3,
-                              ),
-                            ) :const Center(
-                              child: Text( "Next",style: TextStyle(color: Colors.white),),
-                            )
-                        ),
+                                    width: 24,
+                                    height: 24,
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: const CircularProgressIndicator(
+                                      color: Colors.white,
+                                      strokeWidth: 3,
+                                    ),
+                                  )
+                                : const Center(
+                                    child: Text(
+                                      "Next",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  )),
                       ),
                     )
                     // Container(
@@ -272,17 +225,27 @@ class _chooseanguageState extends State<chooseanguage> {
     );
   }
 
+  String isLogin = "";
+
+  void GetData() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    isLogin = pref.getString("email") ?? "";
+    setState(() {});
+  }
+
   var _isLoading = false;
 
   void _onSubmit() {
     setState(() => _isLoading = true);
     Future.delayed(
       const Duration(seconds: 2),
-          () => setState(() => _isLoading = false),
+      () => setState(() => _isLoading = false),
     ).then((value) {
-      Navigator.pushNamed(context, "SignIn");
+      if (isLogin.isEmpty) {
+        Navigator.pushNamed(context, "SignIn");
+      } else if (isLogin.isNotEmpty) {
+        Navigator.pushNamed(context, "botombar");
+      }
     });
-
   }
-
 }
