@@ -59,6 +59,7 @@ class _screenOneState extends State<screenOne> {
     final isInit = isAnimating || state == ButtonState.init;
     final isDone = state == ButtonState.completed;
     return Scaffold(
+        extendBody: true,
       appBar: AppBar(
         leading: Builder(builder: (context) {
           return IconButton(

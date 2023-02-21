@@ -38,6 +38,7 @@ class _botombarState extends State<botombar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
         bottomNavigationBar: Container(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(

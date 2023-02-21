@@ -323,6 +323,7 @@ class _screenTwoState extends State<screenTwo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
         resizeToAvoidBottomInset: true,
         body: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -647,10 +648,14 @@ class _screenTwoState extends State<screenTwo> {
                                                       car_price);
                                                   setState(() {});
                                                 },
+                                                style: const TextStyle(color: Colors.black54,
+                                                    fontWeight: FontWeight.bold,fontSize: 18),
                                                 keyboardType:
                                                     TextInputType.number,
                                                 decoration: InputDecoration(
-                                                  enabled: false,hintStyle: const TextStyle(      color: Colors.black54,  fontWeight: FontWeight.bold,fontSize: 18), contentPadding: const EdgeInsets.only(
+                                                  hintStyle: const TextStyle(color: Colors.black54,
+                                                      fontWeight: FontWeight.bold,fontSize: 18),
+                                                  contentPadding: const EdgeInsets.only(
                                                           bottom: 11, left: 20),
                                                   border: InputBorder.none,
                                                   hintText:
