@@ -15,7 +15,8 @@ class screenTwo extends StatefulWidget {
   final String monthlyInstallment;
   final Dataa vehicles;
 
-  const screenTwo({super.key, required this.monthlyInstallment,  required this.vehicles});
+  const screenTwo(
+      {super.key, required this.monthlyInstallment, required this.vehicles});
 
   @override
   State<screenTwo> createState() => _screenTwoState(
@@ -57,7 +58,18 @@ class _screenTwoState extends State<screenTwo> {
       setState(() {
         overlayimage = image;
       });
+
+
     });
+    // for(TextEditingController controller in controller){
+    //   controller.addListener(() {
+    //     final text = controller.text;
+    //     final number = int.tryParse(text);
+    //     if (number != null && (number > 20)) {
+    //       controller.text = '';
+    //     }
+    //   });
+    // }
     super.initState();
     initialize();
   }
@@ -105,14 +117,14 @@ class _screenTwoState extends State<screenTwo> {
     double lastPayment,
     double carPrice,
   ) {
-    double monthlyInstallment = ((carPrice -
-                (carPrice * (downPaymentPercentage / 100))) +
-            (((carPrice - (carPrice * (downPaymentPercentage / 100))) *
-                    (interest / 100)) *
-                (noOfMonths / 12)) +
-            ((carPrice * (insurance / 100)) * (noOfMonths / 12)) -
-            (carPrice - (carPrice - (carPrice * (lastPayment / 100))))) /
-        (noOfMonths - 1);
+    double monthlyInstallment =
+        ((carPrice - (carPrice * (downPaymentPercentage / 100))) +
+                (((carPrice - (carPrice * (downPaymentPercentage / 100))) *
+                        (interest / 100)) *
+                    (noOfMonths / 12)) +
+                ((carPrice * (insurance / 100)) * (noOfMonths / 12)) -
+                (carPrice - (carPrice - (carPrice * (lastPayment / 100))))) /
+            (noOfMonths - 1);
     total = (monthlyInstallment * (noOfMonths - 1)) +
         (carPrice - (carPrice - (carPrice * (lastPayment / 100)))) +
         (carPrice * (downPaymentPercentage / 100));
@@ -272,7 +284,7 @@ class _screenTwoState extends State<screenTwo> {
         brush: PdfSolidBrush(PdfColor(126, 155, 203)),
         bounds: Rect.fromLTWH(520, gridResult.bounds.bottom + 10, 0, 0));
     gridResult.page.graphics.drawString(
-        'Total Price :                             ${total.toStringAsFixed(2)}',
+        'Total Price :  ${total.toStringAsFixed(2)}',
         subHeadingFont,
         brush: PdfSolidBrush(PdfColor(126, 155, 203)),
         bounds: Rect.fromLTWH(520, gridResult.bounds.bottom + 30, 0, 0));
@@ -323,7 +335,7 @@ class _screenTwoState extends State<screenTwo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
+        extendBody: true,
         resizeToAvoidBottomInset: true,
         body: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -433,8 +445,7 @@ class _screenTwoState extends State<screenTwo> {
                                           }),
                                       viewportFraction: 1,
                                       autoPlay: true,
-                                      height: 150
-                                  )                                 ,
+                                      height: 150),
                                 ),
                                 const SizedBox(
                                   height: 5,
@@ -541,7 +552,6 @@ class _screenTwoState extends State<screenTwo> {
                             ),
                           ),
                         ),
-
                         SizedBox(
                           child: ListView.builder(
                             shrinkWrap: true,
@@ -551,7 +561,7 @@ class _screenTwoState extends State<screenTwo> {
                               _value = double.parse(dataa[index].defaultValue);
                               return Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(vertical:15 ),
+                                    const EdgeInsets.symmetric(vertical: 15),
                                 child: SingleChildScrollView(
                                   child: Container(
                                     padding: const EdgeInsets.only(left: 20),
@@ -560,107 +570,182 @@ class _screenTwoState extends State<screenTwo> {
                                       children: [
                                         Column(
                                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            Row(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  dataa[index].description,
-                                                  style: const TextStyle(fontSize: 10,color: Colors.black),
-                                                ),
-                                                const SizedBox(
-                                                  width: 5,
-                                                ),
-                                                StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) {
-                                                  return Align(
-                                                    alignment: Alignment.topRight,
-                                                    child: SizedBox(
-                                                      width: 45,
-                                                      height: 22,
-                                                      child: Transform.scale(
-                                                        scale: 1.0,
-                                                        child: Switch(
-                                                            activeColor: const Color(0xff4263eb),
-                                                            value: checkBox[index]!,
-                                                            onChanged: (check) {
-                                                              setState(() {
-                                                                print(checkBox[index].toString());
-                                                                checkBox[index] = !checkBox[index]!;
-                                                              });
-                                                            }),
-                                                      ),
-                                                    ),
-                                                  );
-                                                },)
+                                            SizedBox(
+                                              width: 100,
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    dataa[index].description,
+                                                    style: const TextStyle(
+                                                        fontSize: 10,
+                                                        color: Colors.black),
+                                                  ),
 
-                                              ],
+                                                  const SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  StatefulBuilder(
+                                                    builder: (BuildContext context, void Function(void Function()) setState) {
+                                                      return Align(
+                                                        alignment: Alignment.topRight,
+                                                        child: SizedBox(
+                                                          width: 30,
+                                                          height: 22,
+                                                          child: Transform.scale(
+                                                            scale: 1.0,
+                                                            child: Switch(
+                                                                activeColor:
+                                                                    const Color(
+                                                                        0xff4263eb),
+                                                                value: checkBox[
+                                                                    index]!,
+                                                                onChanged:
+                                                                    (check) {
+                                                                  setState(() {
+                                                                    // print(checkBox[index].toString());
+                                                                    checkBox[
+                                                                            index] =
+                                                                        !checkBox[
+                                                                            index]!;
+                                                                  });
+                                                                }),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  )
+                                                ],
+                                              ),
                                             ),
+
                                             Container(
                                               width: 100,
                                               height: 28,
-                                              decoration: const BoxDecoration(
-                                                  color: Colors.black12,
-                                                  borderRadius: BorderRadius.all(
-                                                      Radius.circular(5))),
-                                              child: TextField(
-                                                enabled: !checkBox[index]!,
-                                                controller: controller[index],
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    abc[index] =
-                                                        double.parse(value);
-                                                    if (index == 0) {
-                                                      controller[index].text =
-                                                          abc[index]
-                                                              .toStringAsFixed(2);
-                                                      interest = abc[index];
-                                                    } else if (index == 1) {
-                                                      controller[index].text =
-                                                          abc[index]
-                                                              .toStringAsFixed(2);
-                                                      insurence = abc[index];
-                                                    } else if (index == 2) {
-                                                      controller[index].text =
-                                                          abc[index]
-                                                              .toStringAsFixed(2);
-                                                      down_payment_percentage =
-                                                          abc[index];
-                                                    } else if (index == 3) {
-                                                      controller[index].text =
-                                                          abc[index]
-                                                              .toStringAsFixed(2);
-                                                      last_payment = abc[index];
-                                                    } else if (index == 4) {
-                                                      controller[index].text =
-                                                          abc[index]
-                                                              .toStringAsFixed(0);
-                                                      no_of_months = abc[index];
-                                                    }
-                                                  });
-                                                  calculate(
-                                                      no_of_months,
-                                                      interest,
-                                                      down_payment_percentage,
-                                                      insurence,
-                                                      last_payment,
-                                                      car_price);
-                                                  setState(() {});
+                                              decoration: const BoxDecoration(color: Colors.black12, borderRadius:BorderRadius.all(Radius.circular(5))),
+                                              child: StatefulBuilder(
+
+
+                                                builder: (BuildContext context, void Function(void Function()) setState) {
+                                                  return  TextField(
+                                                    textAlign: TextAlign.left,
+                                                    inputFormatters: [
+                                                      CustomMaxValueInputFormatter(mxInputValue: double.parse(dataa[index].maxValue)),
+                                                    ],
+                                                    enabled: !checkBox[index]!,
+                                                    controller: controller[index],
+                                                    onChanged: (value) {
+
+                                                      controller[index].selection = TextSelection(
+                                                          baseOffset: controller[index].length,
+                                                          extentOffset: controller[index].length);
+                                                      // controller[index] = TextSelection.fromPosition(TextPosition(offset: controller[index]));
+                                                      if(controller[index] == "12"){
+                                                        controller[index].clear();
+                                                      }
+                                                      setState(() {
+                                                      // if(int.parse(controller[index].toString()) > 12){
+                                                      //   controller[index].clear();
+                                                      // }
+
+
+                                                        abc[index] =double.parse(value);
+                                                        if (index == 0) {
+                                                          controller[index].text = abc[index].toStringAsFixed(2);
+                                                          interest = abc[index];
+                                                        } else if (index == 1) {
+                                                          controller[index].text = abc[index].toStringAsFixed(2);
+                                                          insurence = abc[index];
+                                                        } else if (index == 2) {
+                                                          controller[index].text =abc[index].toStringAsFixed(2);
+                                                          down_payment_percentage =abc[index];
+                                                        } else if (index == 3) {
+                                                          controller[index].text =abc[index].toStringAsFixed(2);
+                                                          last_payment = abc[index];
+                                                        } else if (index == 4) {
+                                                          controller[index].text =abc[index].toStringAsFixed(0);
+                                                          no_of_months = abc[index];
+                                                        }
+                                                      }); calculate( no_of_months,interest,down_payment_percentage,insurence,last_payment,car_price);
+                                                      // controller[index].selection =
+                                                      //     TextSelection.collapsed(offset: controller[index]);
+                                                                                                         },
+                                                    style: const TextStyle(
+                                                        color: Colors.black54,
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 18),
+                                                    keyboardType:TextInputType.number,
+                                                    decoration: InputDecoration(
+                                                      hintStyle: const TextStyle(
+                                                          color: Colors.black54,fontWeight:FontWeight.bold,
+                                                          fontSize: 18),
+                                                      contentPadding:
+                                                      const EdgeInsets.only(bottom: 11, left: 20),
+                                                      border: InputBorder.none,
+                                                      hintText: dataa[index].defaultValue,
+                                                    ),
+                                                  );
                                                 },
-                                                style: const TextStyle(color: Colors.black54,
-                                                    fontWeight: FontWeight.bold,fontSize: 18),
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                decoration: InputDecoration(
-                                                  hintStyle: const TextStyle(color: Colors.black54,
-                                                      fontWeight: FontWeight.bold,fontSize: 18),
-                                                  contentPadding: const EdgeInsets.only(
-                                                          bottom: 11, left: 20),
-                                                  border: InputBorder.none,
-                                                  hintText:
-                                                      dataa[index].defaultValue,
-                                                ),
+                                                // child: TextField(
+                                                //   textAlign: TextAlign.left,
+                                                //   // inputFormatters: [
+                                                //   //   FilteringTextInputFormatter.allow(RegExp(r'[0-8]'))
+                                                //   // ],
+                                                //   enabled: !checkBox[index]!,
+                                                //   controller: controller[index],
+                                                //   onChanged: (value) {
+                                                //
+                                                //     // if (int.parse(controller[index].toString())  > int.parse(dataa[index].maxValue.toString())){
+                                                //     //     controller[index].clear();
+                                                //     // }else{
+                                                //       controller[index] = TextSelection.fromPosition(TextPosition(offset: controller[index].length));
+                                                //
+                                                //       setState(() {
+                                                //         abc[index] =double.parse(value);
+                                                //         if (index == 0) {
+                                                //           controller[index].text = abc[index].toStringAsFixed(2);
+                                                //           interest = abc[index];
+                                                //         } else if (index == 1) {
+                                                //           controller[index].text = abc[index].toStringAsFixed(2);
+                                                //           insurence = abc[index];
+                                                //         } else if (index == 2) {
+                                                //           controller[index].text =abc[index].toStringAsFixed(2);
+                                                //           down_payment_percentage =abc[index];
+                                                //         } else if (index == 3) {
+                                                //           controller[index].text =abc[index].toStringAsFixed(2);
+                                                //           last_payment = abc[index];
+                                                //         } else if (index == 4) {
+                                                //           controller[index].text =abc[index].toStringAsFixed(0);
+                                                //           no_of_months = abc[index];
+                                                //         }
+                                                //
+                                                //       });
+                                                //     // }
+                                                //
+                                                //
+                                                //     calculate( no_of_months,interest,down_payment_percentage,insurence,last_payment,car_price);
+                                                //     // setState(() {});
+                                                //   },
+                                                //   style: const TextStyle(
+                                                //       color: Colors.black54,
+                                                //       fontWeight: FontWeight.bold,
+                                                //       fontSize: 18),
+                                                //   keyboardType:TextInputType.number,
+                                                //   decoration: InputDecoration(
+                                                //     hintStyle: const TextStyle(
+                                                //         color: Colors.black54,fontWeight:FontWeight.bold,
+                                                //         fontSize: 18),
+                                                //     contentPadding:
+                                                //         const EdgeInsets.only(bottom: 11, left: 20),
+                                                //     border: InputBorder.none,
+                                                //     hintText: dataa[index].defaultValue,
+                                                //   ),
+                                                // ),
                                               ),
                                             ),
                                           ],
@@ -697,9 +782,11 @@ class _screenTwoState extends State<screenTwo> {
                                                           ),
                                                           child: Slider(
                                                             min: double.parse(
-                                                                dataa[index].minValue),
+                                                                dataa[index]
+                                                                    .minValue),
                                                             max: double.parse(
-                                                                dataa[index].maxValue),
+                                                                dataa[index]
+                                                                    .maxValue),
                                                             value: abc[index],
                                                             onChanged: (val) {
                                                               setState(() {
@@ -788,13 +875,11 @@ class _screenTwoState extends State<screenTwo> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
                                               children: [
-                                                Text(
-                                                    dataa[index].minValue),
+                                                Text(dataa[index].minValue),
                                                 const SizedBox(
                                                   width: 100,
                                                 ),
-                                                Text(
-                                                    dataa[index].maxValue),
+                                                Text(dataa[index].maxValue),
                                               ],
                                             ),
                                           ],
@@ -807,7 +892,6 @@ class _screenTwoState extends State<screenTwo> {
                             },
                           ),
                         ),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -861,196 +945,196 @@ class _screenTwoState extends State<screenTwo> {
         ));
   }
 
-  Widget TheBar(thenew) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Container(
-        padding: const EdgeInsets.only(left: 20),
-        //color: Colors.blueGrey,
-        height: 50,
-        child: Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      dataa[0].description,
-                      style: const TextStyle(fontSize: 10, color: Colors.black),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: SizedBox(
-                        width: 10,
-                        height: 10,
-                        child: Transform.scale(
-                          scale: 0.9,
-                          child: Switch(
-                              //inactiveThumbColor: Colors.black,
-                              activeColor: const Color(0xff4263eb),
-                              value: thenew,
-                              onChanged: (check) {
-                                setState(() {
-                                  thenew = check;
-                                  // print(checkBox[index]);
-                                });
-                              }),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Container(
-                  width: 100,
-                  height: 28,
-                  decoration: const BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                  child: TextField(
-                    controller: controller[0],
-                    onChanged: (value) {
-                      setState(() {
-                        // abc[index] = double.parse(value);
-                        // if (index == 0) {
-                        //   controller[index].text = abc[index].toStringAsFixed(2);
-                        //   interest = abc[index];
-                        // } else if (index == 1) {
-                        //   controller[index].text = abc[index].toStringAsFixed(2);
-                        //   insurence = abc[index];
-                        // } else if (index == 2) {
-                        //   controller[index].text = abc[index].toStringAsFixed(2);
-                        //   down_payment_percentage = abc[index];
-                        // } else if (index == 3) {
-                        //   controller[index].text = abc[index].toStringAsFixed(2);
-                        //   last_payment = abc[index];
-                        // } else if (index == 4) {
-                        //   controller[index].text = abc[index].toStringAsFixed(0);
-                        //   no_of_months = abc[index];
-                        // }
-                      });
-                      // calculate(no_of_months, interest, down_payment_percentage, insurence, last_payment, car_price);
-                      // setState(() {});
-                    },
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      enabled: false,
-                      hintStyle: const TextStyle(
-                          color: Colors.black54,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18),
-                      contentPadding:
-                          const EdgeInsets.only(bottom: 11, left: 20),
-                      border: InputBorder.none,
-                      hintText: dataa[0].defaultValue,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Transform.translate(
-              offset: const Offset(0, 13),
-              child: Column(
-                children: [
-                  overlayimage != null
-                      ? StatefulBuilder(
-                          builder: (BuildContext context,
-                              void Function(void Function()) setState) {
-                            return SizedBox(
-                              height: 30,
-                              width: MediaQuery.of(context).size.width - 140,
-                              child: SliderTheme(
-                                data: SliderThemeData(
-                                  trackHeight: 12,
-                                  inactiveTrackColor: Colors.black12,
-                                  activeTickMarkColor: const Color(0xff4263eb),
-                                  thumbColor: Colors.black,
-                                  thumbShape: SliderThumbImage(overlayimage!),
-                                ),
-                                child: Slider(
-                                  min: double.parse(dataa[0].minValue),
-                                  max: double.parse(dataa[0].maxValue),
-                                  value: abc[0],
-                                  onChanged: (val) {
-                                    // setState(() {
-                                    //   abc[index] = val;
-                                    //   if(index==0){
-                                    //     controller[index].text=double.parse(val.toString()).toStringAsFixed(2).toString();
-                                    //     interest=abc[index];
-                                    //   }else if(index==1){
-                                    //     controller[index].text=double.parse(val.toString()).toStringAsFixed(2).toString();
-                                    //     insurence=abc[index];
-                                    //   }
-                                    //   else if(index==2){
-                                    //     controller[index].text=double.parse(val.toString()).toStringAsFixed(2).toString();
-                                    //     down_payment_percentage=abc[index];
-                                    //   }
-                                    //   else if(index==3){
-                                    //     controller[index].text=double.parse(val.toString()).toStringAsFixed(2).toString();
-                                    //     last_payment=abc[index];
-                                    //   }
-                                    //   else if(index==4){
-                                    //     controller[index].text=double.parse(val.toString()).toStringAsFixed(0).toString();
-                                    //     no_of_months=abc[index];
-                                    //   }
-                                    //   calculate(no_of_months, interest, down_payment_percentage, insurence, last_payment, car_price);
-                                    // });
-                                    controller[0].text = val.toString();
-                                  },
-                                ),
-                              ),
-                            );
-                          },
-                        )
-                      : Container(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(dataa[0].minValue),
-                      const SizedBox(
-                        width: 100,
-                      ),
-                      Text(dataa[0].maxValue),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget CheckBox(bool) {
-    return Align(
-      alignment: Alignment.topRight,
-      child: SizedBox(
-        width: 10,
-        height: 10,
-        child: Transform.scale(
-          scale: 0.9,
-          child: Switch(
-              //inactiveThumbColor: Colors.black,
-              activeColor: const Color(0xff4263eb),
-              value: bool,
-              onChanged: (check) {
-                setState(() {
-                  bool = check;
-                  print(bool);
-                });
-              }),
-        ),
-      ),
-    );
-  }
+  // Widget TheBar(thenew) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(vertical: 6),
+  //     child: Container(
+  //       padding: const EdgeInsets.only(left: 20),
+  //       //color: Colors.blueGrey,
+  //       height: 50,
+  //       child: Row(
+  //         children: [
+  //           Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                 children: [
+  //                   Text(
+  //                     dataa[0].description,
+  //                     style: const TextStyle(fontSize: 10, color: Colors.black),
+  //                   ),
+  //                   const SizedBox(
+  //                     width: 20,
+  //                   ),
+  //                   Align(
+  //                     alignment: Alignment.topRight,
+  //                     child: SizedBox(
+  //                       width: 10,
+  //                       height: 10,
+  //                       child: Transform.scale(
+  //                         scale: 0.9,
+  //                         child: Switch(
+  //                             //inactiveThumbColor: Colors.black,
+  //                             activeColor: const Color(0xff4263eb),
+  //                             value: thenew,
+  //                             onChanged: (check) {
+  //                               setState(() {
+  //                                 thenew = check;
+  //                                 // print(checkBox[index]);
+  //                               });
+  //                             }),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //               const SizedBox(
+  //                 height: 8,
+  //               ),
+  //               Container(
+  //                 width: 100,
+  //                 height: 28,
+  //                 decoration: const BoxDecoration(
+  //                     color: Colors.black12,
+  //                     borderRadius: BorderRadius.all(Radius.circular(5))),
+  //                 child: TextField(
+  //                   controller: controller[0],
+  //                   onChanged: (value) {
+  //                     setState(() {
+  //                       // abc[index] = double.parse(value);
+  //                       // if (index == 0) {
+  //                       //   controller[index].text = abc[index].toStringAsFixed(2);
+  //                       //   interest = abc[index];
+  //                       // } else if (index == 1) {
+  //                       //   controller[index].text = abc[index].toStringAsFixed(2);
+  //                       //   insurence = abc[index];
+  //                       // } else if (index == 2) {
+  //                       //   controller[index].text = abc[index].toStringAsFixed(2);
+  //                       //   down_payment_percentage = abc[index];
+  //                       // } else if (index == 3) {
+  //                       //   controller[index].text = abc[index].toStringAsFixed(2);
+  //                       //   last_payment = abc[index];
+  //                       // } else if (index == 4) {
+  //                       //   controller[index].text = abc[index].toStringAsFixed(0);
+  //                       //   no_of_months = abc[index];
+  //                       // }
+  //                     });
+  //                     // calculate(no_of_months, interest, down_payment_percentage, insurence, last_payment, car_price);
+  //                     // setState(() {});
+  //                   },
+  //                   keyboardType: TextInputType.number,
+  //                   decoration: InputDecoration(
+  //                     enabled: false,
+  //                     hintStyle: const TextStyle(
+  //                         color: Colors.black54,
+  //                         fontWeight: FontWeight.bold,
+  //                         fontSize: 18),
+  //                     contentPadding:
+  //                         const EdgeInsets.only(bottom: 11, left: 20),
+  //                     border: InputBorder.none,
+  //                     hintText: dataa[0].defaultValue,
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           Transform.translate(
+  //             offset: const Offset(0, 13),
+  //             child: Column(
+  //               children: [
+  //                 overlayimage != null
+  //                     ? StatefulBuilder(
+  //                         builder: (BuildContext context,
+  //                             void Function(void Function()) setState) {
+  //                           return SizedBox(
+  //                             height: 30,
+  //                             width: MediaQuery.of(context).size.width - 140,
+  //                             child: SliderTheme(
+  //                               data: SliderThemeData(
+  //                                 trackHeight: 12,
+  //                                 inactiveTrackColor: Colors.black12,
+  //                                 activeTickMarkColor: const Color(0xff4263eb),
+  //                                 thumbColor: Colors.black,
+  //                                 thumbShape: SliderThumbImage(overlayimage!),
+  //                               ),
+  //                               child: Slider(
+  //                                 min: double.parse(dataa[0].minValue),
+  //                                 max: double.parse(dataa[0].maxValue),
+  //                                 value: abc[0],
+  //                                 onChanged: (val) {
+  //                                   // setState(() {
+  //                                   //   abc[index] = val;
+  //                                   //   if(index==0){
+  //                                   //     controller[index].text=double.parse(val.toString()).toStringAsFixed(2).toString();
+  //                                   //     interest=abc[index];
+  //                                   //   }else if(index==1){
+  //                                   //     controller[index].text=double.parse(val.toString()).toStringAsFixed(2).toString();
+  //                                   //     insurence=abc[index];
+  //                                   //   }
+  //                                   //   else if(index==2){
+  //                                   //     controller[index].text=double.parse(val.toString()).toStringAsFixed(2).toString();
+  //                                   //     down_payment_percentage=abc[index];
+  //                                   //   }
+  //                                   //   else if(index==3){
+  //                                   //     controller[index].text=double.parse(val.toString()).toStringAsFixed(2).toString();
+  //                                   //     last_payment=abc[index];
+  //                                   //   }
+  //                                   //   else if(index==4){
+  //                                   //     controller[index].text=double.parse(val.toString()).toStringAsFixed(0).toString();
+  //                                   //     no_of_months=abc[index];
+  //                                   //   }
+  //                                   //   calculate(no_of_months, interest, down_payment_percentage, insurence, last_payment, car_price);
+  //                                   // });
+  //                                   controller[0].text = val.toString();
+  //                                 },
+  //                               ),
+  //                             ),
+  //                           );
+  //                         },
+  //                       )
+  //                     : Container(),
+  //                 Row(
+  //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //                   children: [
+  //                     Text(dataa[0].minValue),
+  //                     const SizedBox(
+  //                       width: 100,
+  //                     ),
+  //                     Text(dataa[0].maxValue),
+  //                   ],
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+  //
+  // Widget CheckBox(bool) {
+  //   return Align(
+  //     alignment: Alignment.topRight,
+  //     child: SizedBox(
+  //       width: 10,
+  //       height: 10,
+  //       child: Transform.scale(
+  //         scale: 0.9,
+  //         child: Switch(
+  //             //inactiveThumbColor: Colors.black,
+  //             activeColor: const Color(0xff4263eb),
+  //             value: bool,
+  //             onChanged: (check) {
+  //               setState(() {
+  //                 bool = check;
+  //                 print(bool);
+  //               });
+  //             }),
+  //       ),
+  //     ),
+  //   );
+  // }
 }
 
 class SliderThumbImage extends SliderComponentShape {
@@ -1135,4 +1219,33 @@ class SliderThumbImage extends SliderComponentShape {
 Future<Uint8List> _readImageData(String name) async {
   final data = await rootBundle.load('images/$name');
   return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+}
+
+class CustomMaxValueInputFormatter extends TextInputFormatter{
+  final double mxInputValue;
+  CustomMaxValueInputFormatter({required this.mxInputValue});
+
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+   final TextSelection newSelection = newValue.selection;
+   String truncated = newValue.text;
+
+   if(mxInputValue != null){
+     final double? value= double.tryParse(newValue.text);
+     if(value == null){
+       return TextEditingValue(
+         text:  truncated,
+         selection:  newSelection
+       );
+
+     }
+     if(value > mxInputValue){
+       truncated = mxInputValue.toString();
+     }
+   }
+   return TextEditingValue(
+     text:  truncated,
+     selection:  newSelection
+   );
+  }
 }
